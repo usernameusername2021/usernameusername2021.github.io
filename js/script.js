@@ -1,5 +1,4 @@
 let currentSong = null;
-let currentSomgmp3
 let likedTracks = [];
 
 function likedTracksRemoveItem(item) {
