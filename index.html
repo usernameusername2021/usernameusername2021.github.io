@@ -6,15 +6,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Название</title>
-    <link rel="stylesheet" href="css/cards.css" />
-    <link rel="stylesheet" href="css/style.css" />
+
     <link rel="stylesheet" href="css/player.css" />
+    <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="fonts/stylesheet.css" />
     <script src="https://kit.fontawesome.com/767667576b.js" crossorigin="anonymous"></script>
   </head>
 
   <body>
-    <script async src="js/script.js"></script>
+    <script src="js/speed.js"></script>
+    <script ttype="text/javascript" src="js/songs.js"></script>
+    <script ttype="text/javascript" src="js/create_item.js" defer></script>
+    <script ttype="text/javascript" src="js/script.js" defer></script>
+
     <header>
       <nav class="navbar">
         <div class="menu-header">
@@ -22,7 +26,7 @@
             <li><a href="index.html" class="logo">Logo</a></li>
             <li><a href="#">CONTACTS</a></li>
             <li><a href="pages/lab1.html">LABS</a></li>
-            <li><a href="#">LIKED</a></li>
+            <li><a href="pages/liked.html">LIKED</a></li>
           </ul>
         </div>
         <div class="menu-header-media"><input type="checkbox" id="checkbox-menu" />
@@ -32,7 +36,7 @@
           </ul>
           <div class="menu">
             <ul class="menu-ul">
-              <li><a href="#">LIKED</a></li>
+              <li><a href="pages/liked.html">LIKED</a></li>
               <li><a href="pages/lab1.html">LABS</a></li>
               <li><a href="#">CONTACTS</a></li>
             </ul>
@@ -48,54 +52,15 @@
       </div>
 
       <section class="items">
-        <div class="item">
-          <div class="itemtp-container">
-            <audio src="songs/242.mp3" id="audio"></audio>
-            <img src="images/Products/card1.jpg" alt="img" class="item-img">
-            <span><i class="fas fa-3x fa-play" onclick="playSong(this)"></i></span>
-            <div class="options">
-              <span><i class="fas fa-heart fa-lg" onclick="likeProduct(this)"></i></span>
-              <span><i class="fas fa-download fa-lg" onclick="downloadProduct(this)"></i></span>
-            </div>
+        <div class="item" data="">
+          <div class="itemtp-container"><audio src="" id="audio"></audio>
+            <div id="wrapper"><img src="" alt="img" class="item-img"></div><span><i class="fas fa-3x fa-play" onclick="playSong(this)"></i></span>
+            <div class="options"><span><i class="fas fa-heart fa-lg" onclick="likeProduct(this)"></i></span><span><i class="fas fa-download fa-lg" onclick="downloadProduct(this)"></i></span></div>
           </div>
           <div class="itembt-container">
-            <p class="name">NN1</p>
-            <!-- <p class="info">1 USD</p> -->
+            <p class="name"></p><!-- <p class="info"></p> -->
           </div>
         </div>
-        </div>
-        <div class="item ">
-          <div class="itemtp-container">
-            <audio src="songs/269.mp3" id="audio"></audio>
-            <img src="images/Products/card5.jpg" alt="img" class="item-img">
-            <span><i class="fas fa-play fa-3x" onclick="playSong(this)"></i></span>
-            <div class="options">
-              <span><i class="fas fa-heart fa-lg" onclick="likeProduct(this)"></i></span>
-              <span><i class="fas fa-download fa-lg" onclick="downloadProduct(this)"></i></span>
-            </div>
-          </div>
-          <div class="itembt-container">
-            <p class="name">Offhll</p>
-            <!-- <p class="info">99999 USD</p> -->
-          </div>
-        </div>
-        <div class="item ">
-          <div class="itemtp-container">
-            <audio src="songs/278.mp3" id="audio"></audio>
-            <img src="images/Products/card4.jpg" alt="img" class="item-img">
-            <span><i class="fas fa-play fa-3x" onclick="playSong(this)"></i></span>
-            <div class="options">
-              <span><i class="fas fa-heart fa-lg" onclick="likeProduct(this)"></i></span>
-              <span><i class="fas fa-download fa-lg" onclick="downloadProduct(this)"></i></span>
-            </div>
-          </div>
-          <div class="itembt-container">
-            <p class="name">Loremip</p>
-
-            <!-- <p class="info">99999 USD</p> -->
-          </div>
-        </div>
-
       </section>
     </main>
 
@@ -103,8 +68,8 @@
       <div class="player">
         <div class="song-slider">
           <input type="range" value="0" class="seek-bar">
-          <span class="current-time">00:00</span>
-          <span class="song-duration">00:00</span>
+          <span class="current-time">0:00</span>
+          <span class="song-duration">0:00</span>
         </div>
         <div class="footer-bt-container">
           <div class="song-info">
@@ -115,15 +80,15 @@
             </div>
           </div>
           <div class="controls-cnt">
-            <span><i class="fas fa-backward" style="color: white;"></i></span>
+            <span><i class="fas fa-backward" style="color: white;" onclick="backwardButton()"></i></span>
             <span><i class="fas fa-play fa-lg" style="color: white;" id="footer-play-btn" onclick="footerPlaySong(this)"></i></span>
-            <span><i class="fas fa-forward" style="color: white;"></i></span>
+            <span><i class="fas fa-forward" style="color: white;" onclick="forwardButton()"></i></span>
           </div>
           <div class="controls-rght">
             <span>
+              <i class="fas fa-retweet" onclick="Repeate(this)"></i>
               <i class="fas fa-heart fa-lg" id="footer-heart" onclick="refreshBarHeart(null)"></i>
-              <i class="fas fa-volume-up" style="color: white;"></i>
-              <input type="range" value="0" class="volume-bar">
+              <div id="volume-bar-container"><i class="fas fa-volume-up" style="color: white;"></i><input type="range" value="0" class="volume-bar"></div>
             </span>
           </div>
         </div>

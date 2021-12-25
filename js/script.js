@@ -1,6 +1,25 @@
+const appView = () => {
+  const doc = document.documentElement
+  doc.style.setProperty('--app-height', `${window.innerHeight}px`)
+  doc.style.setProperty('--app-width', `${window.innerWidth}px`)
+}
+window.addEventListener('resize', appView);
+appView();
 let currentSong = null;
-let likedTracks = [];
+console.log(likedTracks);
+let audio = new Audio();
+let playlist = Array.from(document.querySelectorAll(".item"));
+const currentTime = document.querySelector(".current-time");
+const songDuration = document.querySelector(".song-duration");
+const seekBar = document.querySelector(".seek-bar");
+const volumeBar = document.querySelector(".volume-bar");
+let notChangingSeekBar = true;
+let currentItem = null;
+volumeBar.max = 100;
+let playIsActive = false;
+let repeate = false;
 
+//
 function likedTracksRemoveItem(item) {
   let index = likedTracks.indexOf(item);
   if (index > -1) {
@@ -9,7 +28,7 @@ function likedTracksRemoveItem(item) {
 }
 
 function refreshBarHeart(elemHeartIsActive) {
-  // if element is existing (pressing heart on item card)
+  // if element is exist (pressing heart on item card)
   if (elemHeartIsActive != null) {
     if (elemHeartIsActive) {
       document.querySelector('#footer-heart').classList.add('active');
@@ -20,17 +39,16 @@ function refreshBarHeart(elemHeartIsActive) {
     if (currentSong.parentElement.parentElement.parentElement.querySelector('.fa-heart').classList.contains('active')) {
       document.querySelector('#footer-heart').classList.remove('active');
       currentSong.parentElement.parentElement.parentElement.querySelector('.fa-heart').classList.remove('active');
-      likedTracksRemoveItem(currentSong.parentElement.parentElement.parentElement);
-      // console.log(likedTracks);
-
+      likedTracksRemoveItem(parseInt(currentSong.parentElement.parentElement.parentElement.attributes.data.value));
     } else {
       document.querySelector('#footer-heart').classList.add('active');
       currentSong.parentElement.parentElement.parentElement.querySelector('.fa-heart').classList.add('active');
-      likedTracks.push(currentSong.parentElement.parentElement.parentElement);
-      // console.log(likedTracks);
-
+      likedTracks.push(parseInt(currentSong.parentElement.parentElement.parentElement.attributes.data.value));
     }
+    localStorage.setItem("likedTracks", JSON.stringify(likedTracks))
+    console.log(JSON.parse(localStorage.getItem("likedTracks")))
   }
+
 }
 
 document.querySelector("#search-line").oninput = function () {
@@ -51,6 +69,7 @@ document.querySelector("#search-line").oninput = function () {
   }
 };
 
+
 document.querySelector(".menu-ul").onclick = function () {
   document.querySelector("#checkbox-menu").checked = false;
 };
@@ -58,38 +77,36 @@ document.querySelector(".menu-ul").onclick = function () {
 function likeProduct(elem) {
   elem.classList.toggle("active");
   if (elem.classList.contains("active")) {
-    likedTracks.push(elem.parentElement.parentElement.parentElement.parentElement);
-    // console.log(likedTracks);
-
+    likedTracks.push(parseInt(elem.parentElement.parentElement.parentElement.parentElement.attributes.data.value));
   } else {
-    likedTracksRemoveItem(elem.parentElement.parentElement.parentElement.parentElement);
-    //console.log(likedTracks);
-
+    likedTracksRemoveItem(parseInt(elem.parentElement.parentElement.parentElement.parentElement.attributes.data.value));
   }
   if (currentSong != null) {
     if (currentSong.parentElement.parentElement.parentElement == elem.parentElement.parentElement.parentElement.parentElement) {
       refreshBarHeart(elem.classList.contains("active"));
     }
   }
+  localStorage.setItem("likedTracks", JSON.stringify(likedTracks))
+  console.log(JSON.parse(localStorage.getItem("likedTracks")))
 }
 
 
 function playSong(elem) {
-  let playIsNotActive = elem.classList.contains('fa-pause');
+  playIsActive = elem.classList.contains('fa-pause');
   // pause audio (clicking pause icon on item)
-  if (playIsNotActive) {
+  if (playIsActive) {
+    if (audio != undefined) {
+      audio.pause();
+    }
     //changing pause icon to play icon
     document.querySelector('#footer-play-btn').classList.remove('fa-pause');
     document.querySelector('#footer-play-btn').classList.add('fa-play');
     elem.classList.remove('fa-pause');
     elem.classList.add('fa-play');
-  } else {  // play new audio (clicking play icon on item)
-    // changing pause icon on prev item
-    if (currentSong != null) {
-      currentSong.classList.remove('fa-pause')
-      currentSong.classList.add('fa-play');
-    } else {
+  } else {  // play audio (clicking play icon on item)
+    if (currentSong == null) { //open footer once
       document.querySelector('footer').classList.add('opened');
+      volumeBar.value = audio.volume * 100;
     }
     //changing play icon to pause icon
     document.querySelector('#footer-play-btn').classList.add('fa-pause');
@@ -97,17 +114,17 @@ function playSong(elem) {
     elem.classList.remove('fa-play');
     elem.classList.add('fa-pause');
     if (currentSong != elem) {
-      //setting name/desc/img to play bar
-      let item = elem.parentElement.parentElement.parentElement;
-      let song_name = item.querySelector('.name').innerText;
-      // let song_info = item.querySelector('.info').innerText;
-      let song_img = item.querySelector('.item-img').src;
-      document.querySelector('.current-song-name').textContent = song_name;
-      // document.querySelector('.current-song-info').textContent = song_info;
-      document.querySelector('.current-song-img').src = song_img;
-      //setting like to play bar
-      refreshBarHeart(item.querySelector('.fa-heart').classList.contains('active'));
+      // changing pause icon on prev item
+      if (currentSong != null) {
+        currentSong.classList.remove('fa-pause')
+        currentSong.classList.add('fa-play');
+      }
+      currentItem = elem.parentElement.parentElement.parentElement;
+      setSong(currentItem);
       currentSong = elem;
+    }
+    if (audio != undefined) {
+      audio.play();
     }
   }
 }
@@ -119,10 +136,166 @@ function footerPlaySong(elem) {
     elem.classList.add('fa-play');
     currentSong.classList.remove('fa-pause')
     currentSong.classList.add('fa-play');
+    if (audio != undefined) {
+      audio.pause();
+    }
   } else {
     elem.classList.add('fa-pause');
     elem.classList.remove('fa-play');
     currentSong.classList.add('fa-pause')
     currentSong.classList.remove('fa-play');
+    if (audio != undefined) {
+      audio.play();
+    }
+  }
+}
+
+
+const formatTime = (time) => {
+  let min = Math.floor(time / 60);
+  let sec = Math.floor(time % 60);
+  if (sec < 10) {
+    sec = `0${sec}`;
+  }
+  return `${min} : ${sec}`;
+}
+
+// seek bar
+
+setInterval(() => {
+  if (notChangingSeekBar) {
+    seekBar.value = audio.currentTime * 10;
+    currentTime.innerHTML = formatTime(audio.currentTime);
+
+  }
+}, 1000)
+
+setInterval(() => {
+  if (audio.currentTime == audio.duration) {
+    if (repeate) {
+      seekBar.value = 0;
+      audio.currentTime = 0;
+      audio.play();
+    } else {
+      forwardButton();
+    }
+  }
+}, 100)
+
+seekBar.addEventListener('change', () => {
+  if (audio.currentTime == audio.duration) {
+    audio.play();
+  }
+  audio.currentTime = seekBar.value / 10;
+  notChangingSeekBar = true;
+})
+
+seekBar.addEventListener('input', () => {
+  notChangingSeekBar = false;
+  currentTime.innerHTML = formatTime(seekBar.value / 10);
+})
+
+// volume bar
+volumeBar.addEventListener('input', () => {
+  audio.volume = volumeBar.value / 100;
+})
+
+function setSong(item) {
+  if (audio != undefined) {
+    audio.pause();
+  }
+  audio.currentTime = 0;
+  audio = item.querySelector('#audio');
+  currentTime.innerHTML = '0 : 00';
+  songDuration.innerHTML = formatTime(audio.duration);
+  seekBar.value = 0;
+  seekBar.max = audio.duration * 10;
+  audio.volume = volumeBar.value / 100;
+  let song_name = item.querySelector('.name').innerText;
+  // let song_info = item.querySelector('.info').innerText;
+  let song_img = item.querySelector('.item-img').src;
+  document.querySelector('.current-song-name').textContent = song_name;
+  // document.querySelector('.current-song-info').textContent = song_info;
+  document.querySelector('.current-song-img').src = song_img;
+  refreshBarHeart(item.querySelector('.fa-heart').classList.contains('active'));
+}
+
+function backwardButton() {
+  let index = playlist.indexOf(currentItem);
+  let length = playlist.length - 1;
+  if (audio.currentTime < 5) {
+    if (index <= 0) {
+      setSong(playlist[length]);
+      currentSong.classList.remove('fa-pause')
+      currentSong.classList.add('fa-play');
+      currentSong = playlist[length].querySelector('.fa-play');
+      currentItem = playlist[length];
+      currentSong.classList.remove('fa-play')
+      currentSong.classList.add('fa-pause');
+      document.querySelector('#footer-play-btn').classList.remove('fa-play');
+      document.querySelector('#footer-play-btn').classList.add('fa-pause');
+      if (audio != undefined) {
+        audio.play();
+      }
+    } else {
+      setSong(playlist[index - 1]);
+      currentSong.classList.remove('fa-pause')
+      currentSong.classList.add('fa-play');
+      currentSong = playlist[index - 1].querySelector('.fa-play');
+      currentItem = playlist[index - 1];
+      currentSong.classList.remove('fa-play')
+      currentSong.classList.add('fa-pause');
+      document.querySelector('#footer-play-btn').classList.remove('fa-play');
+      document.querySelector('#footer-play-btn').classList.add('fa-pause');
+      if (audio != undefined) {
+        audio.play();
+      }
+    }
+  } else {
+    seekBar.value = 0;
+    audio.currentTime = 0;
+
+  }
+}
+
+function forwardButton() {
+  let index = playlist.indexOf(currentItem);
+  let length = playlist.length - 1;
+  if (index >= length) {
+    setSong(playlist[0]);
+    currentSong.classList.remove('fa-pause')
+    currentSong.classList.add('fa-play');
+    currentSong = playlist[0].querySelector('.fa-play');
+    currentItem = playlist[0];
+    currentSong.classList.remove('fa-play');
+    currentSong.classList.add('fa-pause');
+    document.querySelector('#footer-play-btn').classList.remove('fa-play');
+    document.querySelector('#footer-play-btn').classList.add('fa-pause');
+    if (audio != undefined) {
+      audio.play();
+    }
+  } else {
+    setSong(playlist[index + 1]);
+    currentSong.classList.remove('fa-pause')
+    currentSong.classList.add('fa-play');
+    currentSong = playlist[index + 1].querySelector('.fa-play');
+    currentItem = playlist[index + 1];
+    currentSong.classList.remove('fa-play')
+    currentSong.classList.add('fa-pause');
+    document.querySelector('#footer-play-btn').classList.remove('fa-play');
+    document.querySelector('#footer-play-btn').classList.add('fa-pause');
+    if (audio != undefined) {
+      audio.play();
+    }
+  }
+}
+
+function Repeate(elem) {
+  if (elem.classList.contains('active')) {
+    elem.classList.remove('active');
+    repeate = false;
+  } else {
+    elem.classList.add('active');
+    repeate = true;
   }
 }

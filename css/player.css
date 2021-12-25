@@ -43,13 +43,16 @@ footer.opened {
   width: 100%;
   max-width: 1100px;
   position: absolute;
+  cursor: pointer;
 }
 .seek-bar {
+  position: relative;
   -webkit-appearance: none;
   width: 100%;
   height: 10px;
   border-radius: 0px;
-  border: 1px solid black;
+  outline: 1px solid black;
+  outline-offset: -1px;
   background: #ffffff;
   overflow: hidden;
   cursor: pointer;
@@ -57,7 +60,7 @@ footer.opened {
 
 .seek-bar::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 1px;
+  width: 0px;
   height: 20px;
   box-shadow: -1200px 0 0 1200px rgb(212, 0, 255);
 }
@@ -79,7 +82,7 @@ footer.opened {
   position: relative;
   display: flex;
   flex-direction: row;
-  width: 35%;
+  width: 30%;
   left: 60px;
   justify-content: flex-start;
   height: 100%;
@@ -87,34 +90,27 @@ footer.opened {
 
 .controls-cnt {
   max-width: 500px;
-  bottom: 5px;
   position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 30%;
-  height: 60px;
+  height: 68px;
   background-color: #000000;
 }
 
-.controls-cnt span {
-  cursor: pointer;
+.controls-rght {
+  width: 30%;
 }
 
-.controls-rght {
-  position: relative;
-  bottom: 5px;
-  width: 35%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.controls-rght span .fa-heart {
-  margin-left: 40px;
-  margin-right: 40px;
-}
 .controls-rght span {
-  position: relative;
+  margin-bottom: 5px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  justify-content: space-around;
 }
 
 .play-btn {
@@ -123,18 +119,19 @@ footer.opened {
 
 .current-song-img {
   border: 1px solid white;
+  outline: 1px solid white;
+  outline-offset: 0px;
   position: relative;
-  bottom: 4px;
   width: 60px;
   height: 60px;
 }
 
 .volume-bar {
-  position: relative;
-  bottom: 4px;
+  position: fixed;
+  margin-left: 40px;
   -webkit-appearance: none;
   width: 100px;
-  height: 8px;
+  height: 7px;
   border-radius: 0px;
   border: 1px solid rgb(255, 255, 255);
   background: #000000;
@@ -146,7 +143,7 @@ footer.opened {
   -webkit-appearance: none;
   width: 1px;
   height: 20px;
-  box-shadow: -1200px 0 0 1200px rgb(255, 255, 255);
+  box-shadow: -200px 0 0 200px rgb(255, 255, 255);
 }
 
 .song-description {
@@ -154,4 +151,26 @@ footer.opened {
   overflow: hidden;
   margin-top: 5px;
   margin-left: 10px;
+}
+
+#volume-bar-container {
+  height: 100%;
+  width: 45%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fa-forward,
+.fa-backward {
+  cursor: pointer;
+}
+
+.fa-retweet {
+  color: rgb(107, 107, 107);
+}
+
+.fa-retweet.active {
+  color: rgb(255, 255, 255);
 }
