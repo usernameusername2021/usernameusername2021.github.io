@@ -120,7 +120,7 @@ section.items p#empty {
 }
 
 .search-line {
-  padding-top: 40px;
+  padding-top: 2vh;
   height: 40px;
   width: 300px;
   border-bottom: 2px solid rgb(0, 0, 0);
