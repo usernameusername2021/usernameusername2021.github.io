@@ -404,7 +404,7 @@ section.items p#empty {
   }
 
   #checkbox-menu:checked ~ .menu {
-    height: 100vh;
+    height: calc(100vh + 200px);
     -webkit-transition: height 0.8s, -webkit-transform 0.8s;
     transition-timing-function: ease-out;
     transition: height 0.8s, transform 0.8s;
