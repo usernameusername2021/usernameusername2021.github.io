@@ -404,11 +404,11 @@ section.items p#empty {
   }
 
   #checkbox-menu:checked ~ .menu {
-    min-height: -webkit-fill-available;
     height: 100vh;
     -webkit-transition: height 0.8s, -webkit-transform 0.8s;
     transition-timing-function: ease-out;
     transition: height 0.8s, transform 0.8s;
+    min-height: -webkit-fill-available;
   }
 
   #checkbox-menu:checked ~ .menu .menu-ul {
@@ -546,6 +546,6 @@ section.items p#empty {
   }
 
   .menu-header-media {
-    z-index: 99999;
+    z-index: 999999;
   }
 }
