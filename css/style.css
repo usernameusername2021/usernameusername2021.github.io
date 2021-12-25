@@ -21,6 +21,7 @@ header {
   position: fixed;
   z-index: 99999;
   width: var(--app-width);
+  width: -webkit-fill-available;
   opacity: 1;
   overflow-y: hidden;
   background: linear-gradient(rgb(15, 15, 15), rgb(8, 8, 8));
@@ -401,7 +402,7 @@ section.items p#empty {
   }
 
   #checkbox-menu:checked ~ .menu {
-    height: var(--app-height);
+    height: calc(var(--app-height) + 200px);
     -webkit-transition: height 0.8s, -webkit-transform 0.8s;
     transition-timing-function: ease-out;
     transition: height 0.8s, transform 0.8s;
