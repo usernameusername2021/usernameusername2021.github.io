@@ -22,7 +22,7 @@ header {
   margin: 0;
   padding: 0;
   position: fixed;
-  z-index: 2;
+  z-index: 99999;
   width: var(--app-width);
   opacity: 1;
   overflow-y: hidden;
@@ -546,6 +546,6 @@ section.items p#empty {
   }
 
   .menu-header-media {
-    z-index: 3;
+    z-index: 99999;
   }
 }
