@@ -404,11 +404,10 @@ section.items p#empty {
   }
 
   #checkbox-menu:checked ~ .menu {
-    height: calc(100vh + 200px);
+    height: var(--app-height);
     -webkit-transition: height 0.8s, -webkit-transform 0.8s;
     transition-timing-function: ease-out;
     transition: height 0.8s, transform 0.8s;
-    min-height: -webkit-fill-available;
   }
 
   #checkbox-menu:checked ~ .menu .menu-ul {
