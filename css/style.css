@@ -385,7 +385,7 @@ section.items p#empty {
 
   header {
     font-size: 20px;
-    overflow-y: hidden;
+    /* overflow-y: hidden; */
   }
 
   .menu-header-media {
