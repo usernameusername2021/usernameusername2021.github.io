@@ -1,6 +1,6 @@
 let likedTracks = [];
-let storage = window.localStorage;
 function storageAvailable() {
+    let storage = window.localStorage;
     try {
         var x = '__storage_test__';
         storage.setItem(x, x);
