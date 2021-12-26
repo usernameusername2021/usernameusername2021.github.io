@@ -1,4 +1,5 @@
 let likedTracks = [];
+storage = window.localStorage;
 function storageAvailable() {
     try {
         var x = '__storage_test__';

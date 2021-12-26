@@ -2,6 +2,7 @@
   padding: 0;
   margin: 0;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: transparent;
 }
 
 ::-webkit-scrollbar {
@@ -11,13 +12,6 @@
 html,
 body {
   overflow-x: hidden;
-}
-
-html.is-locked,
-html.is-locked body {
-  height: 10vh;
-  overflow: hidden;
-  box-sizing: border-box;
 }
 
 header {
@@ -412,10 +406,12 @@ section.items p#empty {
   }
 
   #checkbox-menu:checked ~ .menu {
-    height: 110vh;
-    -webkit-transition: height 0.8s, -webkit-transform 0.8s;
+    --menuLiHeight: 60px;
+    --menuLiNumber: 3;
+    height: calc(var(--menuLiHeight) * var(--menuLiNumber));
+    -webkit-transition: height 0.3s, -webkit-transform 0.3s;
     transition-timing-function: ease-out;
-    transition: height 0.8s, transform 0.8s;
+    transition: height 0.3s, transform 0.3s;
   }
 
   #checkbox-menu:checked ~ .menu .menu-ul {
@@ -463,9 +459,9 @@ section.items p#empty {
 
   #checkbox-menu:not(:checked) ~ .menu .menu-ul {
     height: 0px;
-    -webkit-transition: height 2s, -webkit-transform 2s;
+    -webkit-transition: height 0.3s, -webkit-transform 0.3s;
     transition-timing-function: ease-out;
-    transition: height 2s, transform 2ss;
+    transition: height 0.3s, transform 0.3s;
   }
 
   #checkbox-menu:not(:checked) ~ .menu .menu-ul li {

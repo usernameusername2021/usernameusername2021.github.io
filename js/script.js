@@ -53,6 +53,9 @@ function refreshBarHeart(elemHeartIsActive) {
   }
 
 }
+function preventDefault(e) {
+  e.preventDefault();
+}
 
 document.querySelector("#search-line").oninput = function () {
   let val = this.value.trim().toLowerCase();
@@ -72,13 +75,6 @@ document.querySelector("#search-line").oninput = function () {
   }
 };
 
-document.querySelector("#checkbox-menu").onclick = function () {
-  if (document.querySelector("#checkbox-menu").checked) {
-    document.querySelector('html').classList.add('is-locked');
-  } else {
-    document.querySelector('html').classList.remove('is-locked');
-  }
-}
 
 document.querySelector(".menu-ul").onclick = function () {
   document.querySelector("#checkbox-menu").checked = false;
