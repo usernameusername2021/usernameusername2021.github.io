@@ -12,9 +12,8 @@ body {
   overflow-x: hidden;
 }
 
-html.is-locked,
-html.is-locked body {
-  height: calc(100vh - 1px);
+html.is-locked {
+  height: 500px;
   overflow: hidden;
   box-sizing: border-box;
 }
@@ -392,6 +391,7 @@ section.items p#empty {
   }
 
   header {
+    max-height: 1200px;
     font-size: 20px;
     overflow-y: hidden;
   }
@@ -410,7 +410,7 @@ section.items p#empty {
   }
 
   #checkbox-menu:checked ~ .menu {
-    height: 100vh;
+    height: calc(100vh + 300px);
     -webkit-transition: height 0.8s, -webkit-transform 0.8s;
     transition-timing-function: ease-out;
     transition: height 0.8s, transform 0.8s;

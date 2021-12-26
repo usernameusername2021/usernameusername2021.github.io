@@ -74,10 +74,8 @@ document.querySelector("#search-line").oninput = function () {
 
 document.querySelector("#checkbox-menu").onclick = function () {
   if (document.querySelector("#checkbox-menu").checked) {
-    document.querySelector('body').classList.add('is-locked');
     document.querySelector('html').classList.add('is-locked');
   } else {
-    document.querySelector('body').classList.remove('is-locked');
     document.querySelector('html').classList.remove('is-locked');
   }
 }
