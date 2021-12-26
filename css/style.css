@@ -12,6 +12,13 @@ body {
   overflow-x: hidden;
 }
 
+html.is-locked,
+html.is-locked body {
+  height: calc(100vh - 1px);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
 header {
   padding-left: env(safe-area-inset-left);
   padding-right: env(safe-area-inset-right);
@@ -26,7 +33,6 @@ header {
   width: var(--app-width);
   opacity: 1;
   overflow-y: hidden;
-  background: linear-gradient(rgb(15, 15, 15), rgb(8, 8, 8));
 }
 
 header nav {

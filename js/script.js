@@ -44,7 +44,12 @@ function refreshBarHeart(elemHeartIsActive) {
       currentSong.parentElement.parentElement.parentElement.querySelector('.fa-heart').classList.add('active');
       likedTracks.push(parseInt(currentSong.parentElement.parentElement.parentElement.attributes.data.value));
     }
-    localStorage.setItem("likedTracks", JSON.stringify(likedTracks))
+    if (storageAvailable()) {
+      localStorage.setItem("likedTracks", JSON.stringify(likedTracks));
+    }
+    else {
+      console.log(storageAvailable());
+    }
   }
 
 }
@@ -67,7 +72,15 @@ document.querySelector("#search-line").oninput = function () {
   }
 };
 
-
+document.querySelector("#checkbox-menu").onclick = function () {
+  if (document.querySelector("#checkbox-menu").checked) {
+    document.querySelector('body').classList.add('is-locked');
+    document.querySelector('html').classList.add('is-locked');
+  } else {
+    document.querySelector('body').classList.remove('is-locked');
+    document.querySelector('html').classList.remove('is-locked');
+  }
+}
 document.querySelector(".menu-ul").onclick = function () {
   document.querySelector("#checkbox-menu").checked = false;
 };
@@ -84,7 +97,13 @@ function likeProduct(elem) {
       refreshBarHeart(elem.classList.contains("active"));
     }
   }
-  localStorage.setItem("likedTracks", JSON.stringify(likedTracks))
+  if (storageAvailable()) {
+    localStorage.setItem("likedTracks", JSON.stringify(likedTracks));
+  }
+  else {
+    console.log(storageAvailable());
+  }
+
 }
 
 
