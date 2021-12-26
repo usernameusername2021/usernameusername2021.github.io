@@ -53,9 +53,6 @@ function refreshBarHeart(elemHeartIsActive) {
   }
 
 }
-function preventDefault(e) {
-  e.preventDefault();
-}
 
 document.querySelector("#search-line").oninput = function () {
   let val = this.value.trim().toLowerCase();

@@ -1,5 +1,5 @@
 let likedTracks = [];
-storage = window.localStorage;
+let storage = window.localStorage;
 function storageAvailable() {
     try {
         var x = '__storage_test__';
@@ -23,7 +23,7 @@ function storageAvailable() {
     }
 }
 if (storageAvailable()) {
-    likedTracks = JSON.parse(localStorage.getItem("likedTracks") || "[]");
+    likedTracks = JSON.parse(storage.getItem("likedTracks") || "[]");
 } else {
     console.log("localStorage error: " + storageAvailable())
 }
