@@ -6,7 +6,6 @@ const appView = () => {
 window.addEventListener('resize', appView);
 appView();
 let currentSong = null;
-console.log(likedTracks);
 let audio = new Audio();
 let playlist = Array.from(document.querySelectorAll(".item"));
 const currentTime = document.querySelector(".current-time");
@@ -46,7 +45,6 @@ function refreshBarHeart(elemHeartIsActive) {
       likedTracks.push(parseInt(currentSong.parentElement.parentElement.parentElement.attributes.data.value));
     }
     localStorage.setItem("likedTracks", JSON.stringify(likedTracks))
-    console.log(JSON.parse(localStorage.getItem("likedTracks")))
   }
 
 }
@@ -87,7 +85,6 @@ function likeProduct(elem) {
     }
   }
   localStorage.setItem("likedTracks", JSON.stringify(likedTracks))
-  console.log(JSON.parse(localStorage.getItem("likedTracks")))
 }
 
 

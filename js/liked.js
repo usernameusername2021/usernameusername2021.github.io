@@ -16,8 +16,6 @@ if (likedTracks.length > 0) {
     const items = document.querySelectorAll(".item");
     for (let index = 0; index < likedTracks.length; index++) {
         const song = songs[songs.length - 1 - likedTracks[index]];
-        console.log(likedTracks[index]);
-        console.log(index);
         items[index].attributes.data.value = song.id;
         items[index].querySelector("#audio").src = '../' + song.audio;
         items[index].querySelector(".item-img").src = '../' + song.img;
