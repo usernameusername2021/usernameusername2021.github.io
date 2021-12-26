@@ -79,9 +79,12 @@ document.querySelector("#checkbox-menu").onclick = function () {
     document.querySelector('html').classList.remove('is-locked');
   }
 }
+
 document.querySelector(".menu-ul").onclick = function () {
   document.querySelector("#checkbox-menu").checked = false;
 };
+
+
 
 function likeProduct(elem) {
   elem.classList.toggle("active");
