@@ -60,7 +60,7 @@ footer.opened {
 
 .seek-bar::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 0px;
+  width: 1px;
   height: 20px;
   box-shadow: -1200px 0 0 1200px rgb(212, 0, 255);
 }

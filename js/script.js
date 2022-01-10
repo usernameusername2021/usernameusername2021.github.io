@@ -1,12 +1,7 @@
-const appView = () => {
-  const doc = document.documentElement
-  doc.style.setProperty('--app-height', `${window.innerHeight}px`)
-  doc.style.setProperty('--app-width', `${window.innerWidth}px`)
-}
-window.addEventListener('resize', appView);
-appView();
+
 let currentSong = null;
 let audio = new Audio();
+
 let playlist = Array.from(document.querySelectorAll(".item"));
 const currentTime = document.querySelector(".current-time");
 const songDuration = document.querySelector(".song-duration");
@@ -17,6 +12,7 @@ let currentItem = null;
 volumeBar.max = 100;
 let playIsActive = false;
 let repeate = false;
+
 
 //
 function likedTracksRemoveItem(item) {
@@ -71,12 +67,6 @@ document.querySelector("#search-line").oninput = function () {
     });
   }
 };
-
-
-document.querySelector(".menu-ul").onclick = function () {
-  document.querySelector("#checkbox-menu").checked = false;
-};
-
 
 
 function likeProduct(elem) {
@@ -192,6 +182,11 @@ setInterval(() => {
   }
 }, 100)
 
+seekBar.addEventListener('input', () => {
+  notChangingSeekBar = false;
+  currentTime.innerHTML = formatTime(seekBar.value / 10);
+})
+
 seekBar.addEventListener('change', () => {
   if (audio.currentTime == audio.duration) {
     audio.play();
@@ -200,10 +195,6 @@ seekBar.addEventListener('change', () => {
   notChangingSeekBar = true;
 })
 
-seekBar.addEventListener('input', () => {
-  notChangingSeekBar = false;
-  currentTime.innerHTML = formatTime(seekBar.value / 10);
-})
 
 // volume bar
 volumeBar.addEventListener('input', () => {

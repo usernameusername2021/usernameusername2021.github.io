@@ -1,0 +1,19 @@
+table {
+  border-collapse: collapse;
+  margin-top: 100px;
+}
+
+table td {
+  min-width: 50px;
+  min-height: 50px;
+  border: 2px solid black;
+}
+
+.input-row-column {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+  max-width: 800px;
+  width: 80vw;
+}
