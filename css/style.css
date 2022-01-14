@@ -60,13 +60,13 @@ body {
 
 .menu-list li a {
   text-decoration: none;
-  color: rgb(110, 110, 110);
+  color: rgb(173, 173, 173);
   transition: 0.2s;
   padding: 5px;
 }
 
 .menu-list li a.current {
-  color: rgb(201, 201, 201);
+  color: rgb(255, 255, 255);
 }
 
 li i.fas {
@@ -85,7 +85,7 @@ li {
 }
 
 .menu-list li a:hover {
-  color: rgb(201, 201, 201);
+  color: rgb(255, 255, 255);
   transition: 0.4s;
 }
 .fa-heart {
@@ -158,6 +158,7 @@ section.items p#empty {
   grid-column-gap: 20px;
   align-items: center;
   margin-top: 30px;
+  margin-bottom: 81px;
 }
 
 .item {

@@ -9,11 +9,13 @@
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/lab_table.css" />
     <link rel="stylesheet" href="../fonts/stylesheet.css" />
+    <script src="https://kit.fontawesome.com/767667576b.js" crossorigin="anonymous"></script>
   </head>
 
   <body>
-    <script src="../js/lab_table.js"></script>
+    <script ttype="text/javascript" src="../js/menu_highlight.js" async></script>
     <script ttype="text/javascript" src="../js/menu_ul.js" async></script>
+    <script src="../js/lab_table.js" defer></script>
     <header>
       <nav class="navbar">
         <div class="menu-header">
@@ -41,20 +43,17 @@
     </header>
     <main>
       <section class="lab-table">
-        <div class="input-row-column">
-          <div class="input-row">
-            <p>количество рядов</p>
-            <input type="text" placeholder="" id="table-rows">
-          </div>
-          <div class="input-column">
-            <p>количество столбцов</p>
-            <input type="text" placeholder="" id="table-columns">
-          </div>
+        <p>lab 5
+        </p>
+        <input type="text" placeholder="" id="table-input">
+        <div id="options" class="inactive">
+          <button class="active" id="all" onclick="showAll(this)">All</button>
+          <button id="active" onclick="showActive(this)">Active</button>
+          <button id="completed" onclick="showCompleted(this)">Completed</button>
         </div>
-
-        <table>
-
-        </table>
+        <ul id="toDoList" class="inactive">
+        </ul>
+        <button id="save" onclick="saveList()">Save to local storage</button>
       </section>
     </main>
   </body>

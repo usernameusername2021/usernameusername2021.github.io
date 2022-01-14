@@ -40,16 +40,19 @@ function createItems() {
 }
 
 createItems();
-const items = document.querySelectorAll(".item");
-for (let index = 0; index < songs.length; index++) {
-    const song = songs[index];
-    items[index].attributes.data.value = song.id;
-    items[index].querySelector("#audio").src = song.audio;
-    items[index].querySelector(".item-img").src = song.img;
-    items[index].querySelector(".name").innerHTML = song.name;
-    if (likedTracks.length > 0) {
-        if (likedTracks.indexOf(song.id) != -1) {
-            items[index].querySelector(".fa-heart").classList.add('active');
+fillItems();
+function fillItems() {
+    const items = document.querySelectorAll(".item");
+    for (let index = 0; index < songs.length; index++) {
+        const song = songs[index];
+        items[index].attributes.data.value = song.id;
+        items[index].querySelector("#audio").src = song.audio;
+        items[index].querySelector(".item-img").src = song.img;
+        items[index].querySelector(".name").innerHTML = song.name;
+        if (likedTracks.length > 0) {
+            if (likedTracks.indexOf(song.id) != -1) {
+                items[index].querySelector(".fa-heart").classList.add('active');
+            }
         }
     }
 }

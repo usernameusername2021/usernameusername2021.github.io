@@ -29,7 +29,7 @@ if (storageAvailable()) {
 }
 
 if (likedTracks.length > 0) {
-    likedTracks.sort(function (a, b) { return b - a });
+    likedTracks = likedTracks.reverse();
     createLikedItems();
     const items = document.querySelectorAll(".item");
     for (let index = 0; index < likedTracks.length; index++) {

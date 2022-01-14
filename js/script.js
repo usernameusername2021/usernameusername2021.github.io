@@ -14,7 +14,25 @@ let playIsActive = false;
 let repeate = false;
 
 
-//
+document.querySelector("#search-line").oninput = function () {
+  let val = this.value.trim().toLowerCase();
+  let sItems = document.querySelectorAll(".item");
+  if (val != "") {
+    sItems.forEach(function (elem) {
+      if (elem.innerText.toLowerCase().search(val) == -1) {
+        elem.classList.add("hide");
+      } else {
+        elem.classList.remove("hide");
+      }
+    });
+  } else {
+    sItems.forEach(function (elem) {
+      elem.classList.remove("hide");
+    });
+  }
+};
+
+
 function likedTracksRemoveItem(item) {
   let index = likedTracks.indexOf(item);
   if (index > -1) {
@@ -23,14 +41,13 @@ function likedTracksRemoveItem(item) {
 }
 
 function refreshBarHeart(elemHeartIsActive) {
-  // if element is exist (pressing heart on item card)
   if (elemHeartIsActive != null) {
     if (elemHeartIsActive) {
       document.querySelector('#footer-heart').classList.add('active');
     } else {
       document.querySelector('#footer-heart').classList.remove('active');
     }
-  } else {// if pressing heart on bar
+  } else {
     if (currentSong.parentElement.parentElement.parentElement.querySelector('.fa-heart').classList.contains('active')) {
       document.querySelector('#footer-heart').classList.remove('active');
       currentSong.parentElement.parentElement.parentElement.querySelector('.fa-heart').classList.remove('active');
@@ -50,23 +67,7 @@ function refreshBarHeart(elemHeartIsActive) {
 
 }
 
-document.querySelector("#search-line").oninput = function () {
-  let val = this.value.trim().toLowerCase();
-  let sItems = document.querySelectorAll(".item");
-  if (val != "") {
-    sItems.forEach(function (elem) {
-      if (elem.innerText.toLowerCase().search(val) == -1) {
-        elem.classList.add("hide");
-      } else {
-        elem.classList.remove("hide");
-      }
-    });
-  } else {
-    sItems.forEach(function (elem) {
-      elem.classList.remove("hide");
-    });
-  }
-};
+
 
 
 function likeProduct(elem) {
@@ -93,28 +94,24 @@ function likeProduct(elem) {
 
 function playSong(elem) {
   playIsActive = elem.classList.contains('fa-pause');
-  // pause audio (clicking pause icon on item)
   if (playIsActive) {
     if (audio != undefined) {
       audio.pause();
     }
-    //changing pause icon to play icon
     document.querySelector('#footer-play-btn').classList.remove('fa-pause');
     document.querySelector('#footer-play-btn').classList.add('fa-play');
     elem.classList.remove('fa-pause');
     elem.classList.add('fa-play');
-  } else {  // play audio (clicking play icon on item)
-    if (currentSong == null) { //open footer once
+  } else {
+    if (currentSong == null) {
       document.querySelector('footer').classList.add('opened');
       volumeBar.value = audio.volume * 100;
     }
-    //changing play icon to pause icon
     document.querySelector('#footer-play-btn').classList.add('fa-pause');
     document.querySelector('#footer-play-btn').classList.remove('fa-play');
     elem.classList.remove('fa-play');
     elem.classList.add('fa-pause');
     if (currentSong != elem) {
-      // changing pause icon on prev item
       if (currentSong != null) {
         currentSong.classList.remove('fa-pause')
         currentSong.classList.add('fa-play');
@@ -160,27 +157,22 @@ const formatTime = (time) => {
   return `${min} : ${sec}`;
 }
 
-// seek bar
 
 setInterval(() => {
   if (notChangingSeekBar) {
     seekBar.value = audio.currentTime * 10;
     currentTime.innerHTML = formatTime(audio.currentTime);
-
-  }
-}, 1000)
-
-setInterval(() => {
-  if (audio.currentTime == audio.duration) {
-    if (repeate) {
-      seekBar.value = 0;
-      audio.currentTime = 0;
-      audio.play();
-    } else {
-      forwardButton();
+    if (audio.currentTime == audio.duration) {
+      if (repeate) {
+        seekBar.value = 0;
+        audio.currentTime = 0;
+        audio.play();
+      } else {
+        forwardButton();
+      }
     }
   }
-}, 100)
+}, 1000)
 
 seekBar.addEventListener('input', () => {
   notChangingSeekBar = false;
@@ -196,7 +188,6 @@ seekBar.addEventListener('change', () => {
 })
 
 
-// volume bar
 volumeBar.addEventListener('input', () => {
   audio.volume = volumeBar.value / 100;
 })
